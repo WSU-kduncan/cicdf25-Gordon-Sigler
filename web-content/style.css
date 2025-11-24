@@ -1,0 +1,87 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+header, nav, main, footer {
+    padding: 10px;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 10px;
+}
+
+nav a {
+    text-decoration: none; /* Removes underline from links */
+    color: #007BFF; /* Sets the color of the links to a blue shade */
+}
+
+table {
+    width: 80%; /* Adjusted width */
+    border-collapse: collapse;
+    margin: 0 auto; /* Center the table */
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+caption {
+    font-size: larger;
+    margin: 10px;
+}
+
+footer {
+    font-size: smaller;
+    color: grey;
+}
+
+input, textarea {
+    margin: 10px 0;
+    width: 96%; /* Adjust width to fit within the form's padding */
+    padding: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+label {
+    display: block;
+    text-align: left;
+    margin-top: 10px;
+}
+
+form {
+    width: 60%; /* Set width for the form */
+    margin: 20px auto; /* Center the form horizontally */
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Optional: adds a subtle shadow for better visibility */
+    text-align: left;
+}
+
+/* Additional styling for responsive design (Optional) */
+@media (max-width: 768px) {
+    form, table {
+        width: 90%; /* Makes form and table wider on smaller screens */
+    }
+}
