@@ -10,18 +10,18 @@ jobs:
 
       steps:
             - name: Checkout
-              uses: actions/checkout@v5
+              uses: actions/checkout@v3
 
 
             - name: Login with secrets
-              uses: actions/login-actions@v3
+              uses: actions/login-actions@v2
               with:
                   username: ${{ vars.DOCKERHUB_USERNAME }}
                   password: ${{ secrets.DOCKERHUB_TOKEN }}
 
 
             - name: Build/Push
-              uses: docker/build-push-actions@v6
+              uses: docker/build-push-actions@v5
               with:
                  context: .
                  push: true
