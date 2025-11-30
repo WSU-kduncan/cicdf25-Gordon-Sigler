@@ -9,21 +9,21 @@ jobs:
       runs-on: ubuntu-latest
 
       steps:
-            - name: Checkout
-              uses: actions/checkout@v3
+          - name: Checkout
+            uses: actions/checkout@v3
 
 
-            - name: Login with secrets
-              uses: actions/login-actions@v2
-              with:
-                  username: ${{ vars.DOCKERHUB_USERNAME }}
-                  password: ${{ secrets.DOCKERHUB_TOKEN }}
+          - name: Login with secrets
+            uses: docker/login-actions@v2
+            with:
+                username: ${{ secrets.DOCKERHUB_USERNAME }}
+                password: ${{ secrets.DOCKERHUB_TOKEN }}
 
 
-            - name: Build/Push
-              uses: docker/build-push-actions@v5
-              with:
-                 context: .
-                 push: true
-                 tags: gordonsig/project3:first
+          - name: Build/Push
+            uses: docker/build-push-action@v5
+            with:
+               context: .
+               push: true
+               tags: gordonsig/project3:first
 
