@@ -22,3 +22,88 @@ To run a container that serves the web application from the the image Dockerfile
 Of course you can change the ports or if you don't want detached mode remove the -d flag. But overall that is how you will run a docker container.
 
 ### Workflow
+
+#### Configuring GitHub Repository Secrets
+To make a PAT token you will:
+```
+    go to dockerhub.com
+    sign into to your acccount
+    Open the menu and hit settings
+    Press Personal Acess Tokens
+    Then generate new token
+```
+For scope it depends on the circumstances in the case for the project I went with Read, Write, Delete, because I want full control.
+
+To set secretes while in your repository:
+```
+Press the three dot button
+Click settings
+Click Secrets and Variables then Actions
+Press New Repository Secret
+```
+The secrets for this project are the DOCKER_USERNAME which contains the username for DockerHub.
+
+The other secret is DOCKER_TOKEN which contains the personal access token for DockerHub.
+
+#### CI with GitHub Actions
+
+The workflow trigger looks like this:
+
+```
+on:
+  push:
+      branches:
+         - main
+```
+This means that this workflow only triggers when commits are pushed on the main branch.
+
+The workflow steps section looks like this:
+
+```
+steps:
+          - name: Checkout
+            uses: actions/checkout@v3
+
+
+          - name: Login with secrets
+            uses: docker/login-action@v2
+            with:
+                username: ${{ secrets.DOCKER_USERNAME }}
+                password: ${{ secrets.DOCKER_TOKEN }}
+
+
+          - name: Build/Push
+            uses: docker/build-push-action@v5
+            with:
+               context: .
+               push: true
+               tags: gordonsig/project3:first
+```
+
+The checkout section with  `uses: actions/checkout@v3` makes the repository available to the workflow so it can access the Dockfile and build an image.
+
+The next use is `docker/login-action@v2`. This allows you to login to docker using the username and password.
+
+The last use is `docker/build-push-action@v5`. This makes it where the container image is built from the repository and pushed to DockerHub.
+
+For changes that you will need to make if using a diffrent repository:
+
+The first change you would need to make would be to the name. The name should match the project or thing you are working on.
+
+The second change would be the GitHub secrets, in this repository it's for a specific username and token. When using a diffrent repository these secretes will have to be added or changed.
+
+The third change you would have to do is the image tag. It should be changed to whatever you are currently working on.
+
+The foruth change would be to if you want to keep the trigger. Right now it is set to when a push is made on main. Someone might not want that or might have a diffrent branch that they want to cause the trigger.
+
+https://github.com/WSU-kduncan/cicdf25-Gordon-Sigler/blob/main/.github/workflows/project4.yml
+
+#### Testing & Validating
+
+How to test the workflow? One way to test would be to make a push to the main branch this will trigger the workflow. Go to the actions tab in the repository and see if it was successful or if it had a error.
+
+How to verify that the image in DockerHub works when a container is run using the image? The best way to test this in my mind would be to pull the image first. The run the container and try to reach the website and see if it works or not.
+
+https://hub.docker.com/r/gordonsig/project3
+
+## Part 3 - Semantic Versioning
