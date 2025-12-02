@@ -29,7 +29,7 @@ To run a container that serves the web application from the the image Dockerfile
 
 Of course you can change the ports or if you don't want detached mode remove the -d flag. But overall that is how you will run a docker container.
 
-### Workflow
+### GitHub Actions and DockerHub
 
 #### Configuring GitHub Repository Secrets
 To make a PAT token you will:
