@@ -1,5 +1,13 @@
 # Project 4
 
+## Continuous Integration Project Overview
+
+The goal of this project is to set up an automated system that takes a few HTML files and builds them into a Docker image. This image is updated every time a new version tag is created, making it easy to track changes, rebuild, or build off different versions. 
+
+The continous Intergration pipeline workflow triggers when a tag is pushed. The next tool is GitHub Actions which handles checking the code and making sure everything is good to go. It also makes the version tags then sends it out to DockerHub where the image is built. Now this image can be pulled and ran.
+
+![alt text](Images/Project4_Diagram_3120.png)
+
 ## Part 1: Creating Docker Image
 The website is an old project I have from Web Development 1, and the content is an index that is a list of my classes in the form of a schedule. The second HTML file is a how-to contact page.
 
@@ -107,3 +115,77 @@ How to verify that the image in DockerHub works when a container is run using th
 https://hub.docker.com/r/gordonsig/project3
 
 ## Part 3 - Semantic Versioning
+
+#### Generating tags
+
+To see tags in a git repository use the command `git tag`. While on GitHub under the code section and next to branch is a tag tab where you can see tags.
+
+To generate a tag in a git repository use the command `git tag` For example `git tag -a v1.0.0`.
+
+To push a tag you would use the command `git push` command. For example I did `git push origin v1.0.2`
+
+#### Semantic Versioning Container Images with GitHub Actions
+
+The workflow trigger looks like this:
+```
+on:
+  push:
+      tags:
+         - "v*.*.*"
+```
+
+This works when tag is pushed matching the form of v*.*.* for example you could push something like this tag v1.0.1
+
+
+The workflow steps look like this:
+```
+steps:
+          - name: Checkout
+            uses: actions/checkout@v3
+
+          - name: generate tags
+            id: meta
+            uses: docker/metadata-action@v5
+            with:
+              images: gordonsig/project3
+              tags: |
+                type=semver,pattern={{version}}
+                type=semver,pattern={{major}}
+                type=semver,pattern={{major}}.{{minor}}
+
+          - name: Login with secrets
+            uses: docker/login-action@v2
+            with:
+                username: ${{ secrets.DOCKER_USERNAME }}
+                password: ${{ secrets.DOCKER_TOKEN }}
+
+
+          - name: Build/Push
+            uses: docker/build-push-action@v5
+            with:
+               context: .
+               push: true
+               tags: ${{ steps.meta.outputs.tags }}
+               labels: ${{ steps.meta.outputs.labels }}
+```
+
+The checkout section with  `uses: actions/checkout@v3` makes the repository available to the workflow so it can access the Dockfile and build an image.
+
+`docker/metadata-action@v5` is sued to create the major.minor.patch.
+
+The next use is `docker/login-action@v2`. This allows you to login to docker using the username and password.
+
+The last use is `docker/build-push-action@v5`. This makes it where the container image is built from the repository pushed to DockerHub with all the tags.
+
+https://github.com/WSU-kduncan/cicdf25-Gordon-Sigler/blob/main/.github/workflows/project4.yml
+
+#### Testing & Validating
+
+After pushing my tags I went to the GitHub Actions tab to ensure it was successful. After that I went to DockerHub and checked the tag history and current tag to see if it had changed. If the version was diffrent it proved it worked.
+
+I would say for diffrences it would have to be the same as before. Things like the image name, Secret information, the trigger, all that would have to be changed to fit someones style or requirements.
+
+To check I pulled the most recent version of the Image I had created. After the  pull I ran the container then check to see that it was running. This would ensure that I could get the image and get it going.
+
+https://hub.docker.com/repository/docker/gordonsig/project3/general
+
