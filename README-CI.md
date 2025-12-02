@@ -189,3 +189,21 @@ To check I pulled the most recent version of the Image I had created. After the 
 
 https://hub.docker.com/repository/docker/gordonsig/project3/general
 
+
+## Resources Section
+
+https://docs.docker.com/build/ci/github-actions/manage-tags-labels/
+
+Really good example of how to use tags inside of the workflow. Very useful for part 3.
+
+https://github.com/docker/metadata-action?tab=readme-ov-file#semver
+
+Helped explain the metadata-action to generate a set of tags.
+
+https://github.com/docker/login-action
+
+This was great for showing how to use the secrets in the workflow to login to DockerHub.
+
+https://github.com/docker/build-push-action
+
+This was super helpfull with the Build and Push section of the workflow. It just gave an overall walk through and a bunch of useful information.
