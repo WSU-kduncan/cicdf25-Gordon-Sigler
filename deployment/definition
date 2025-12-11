@@ -1,0 +1,23 @@
+[
+  {
+    "id": "project5-script",
+    "execute-command": "/home/ubuntu/deployment/refresh.sh",
+    "command-working-directory": "/home/ubuntu",
+    "response-message": "Project 5 script should be working.",
+    "trigger-rule": {
+      "and": [
+        {
+          "match": {
+            "type": "secret",
+            "secret": "Gandalf_The_Grey",
+            "parameter": {
+            "source": "url",
+            "name": "Project5-Secret-hook"
+
+          }
+         }
+        }
+      ]
+    }
+  }
+]
