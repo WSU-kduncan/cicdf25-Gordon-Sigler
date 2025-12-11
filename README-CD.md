@@ -62,12 +62,12 @@ https://github.com/WSU-kduncan/cicdf25-Gordon-Sigler/blob/main/deployment/servic
 I chose DockerHub as the payload sender just because it gives you the clearest understanding of if your webhook is working or not, because using DockerHub compared to GitHub
 
 To enable DockerHub to send a payload you
-    login to DockerHub
-    Go to repositories
-    Go to webhooks
-    Then name the webhook and paste in EC2 webhook URL that was set up in part 2
-    The trigger is when a push is made to DockerHub.
-    To verify with checking that a container named project3 is running, check the created/status date.
+login to DockerHub
+Go to repositories
+Go to webhooks
+Then name the webhook and paste in EC2 webhook URL that was set up in part 2
+The trigger is when a push is made to DockerHub.
+To verify with checking that a container named project3 is running, check the created/status date.
 
 ## Part 4 - Project Description & Diagram
 
@@ -76,11 +76,12 @@ To enable DockerHub to send a payload you
 The goal of this project is to make an automated continous deployment pipleine. This pipeline would ensure that users would have the latest version of a Docker container we had previously made. This new container would be on an EC2 instance without any manual assientce needed.
 
 Tools:
-    EC2 Instance: This is the application server that runs the container and where the deployment of the webhooks should happen.
 
-     DockerHub: DockerHub is what sneds the payload once a trigger happends like a new image is built/new tag is created.
+EC2 Instance: This is the application server that runs the container and where the deployment of the webhooks should happen.
 
-    adnanh/webhook: This is what would recieve the payloads and cause the script made to run causing the old image to be removed and the newest image to be pulled onto the EC2 instance.
+DockerHub: DockerHub is what sneds the payload once a trigger happends like a new image is built/new tag is created.
+
+adnanh/webhook: This is what would recieve the payloads and cause the script made to run causing the old image to be removed and the newest image to be pulled onto the EC2 instance.
 
 ### Sources
 
